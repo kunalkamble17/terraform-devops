@@ -3,10 +3,10 @@ provider "aws" {
     region = "ap-northeast-1"
 }
 
-resource "aws_security_group" "sg-1" {
-  name        = "sg-1"
+resource "aws_security_group" "sg1" {
+  name        = "my-sg-tokyo"
   description = "Allow 22, 443, 8080, 80,"
-  vpc_id      = vpc-0c0ea921f2aac0d2b
+  vpc_id      = "vpc-0c0ea921f2aac0d2b"
 
  ingress {
     from_port        = 22
@@ -49,10 +49,52 @@ resource "aws_security_group" "sg-1" {
   }
 }
 
+#resource "aws_instance" "instance-1" {
+  #ami                     = "ami-0e347cff037f057c4"
+  #instance_type           = "t2.micro"
+  #key_name = "tokyo-yagi"
+  #vpc_security_group_ids = ["sg-0a83386f148e63533", aws_security_group.sg1.id ] #refferS
+  #tags = {
+    #Name = "server"
+ # }
+#}
+
+
 resource "aws_instance" "instance-1" {
-  ami                     = "ami-0e347cff037f057c4"
-  instance_type           = "t2.micro"
+  ami                     = var.ami
+  instance_type           = var.instance_type
   key_name = "tokyo-yagi"
-  vpc_security_group_ids = ["sg-0a83386f148e63533", aws_security_group.sg-1.id ] #refferSG
-  name = "instance-1"
+  vpc_security_group_ids = ["sg-0a83386f148e63533", aws_security_group.sg1.id ] #refferS
+  tags = {
+    Name = "server"
+  }
 }
+
+variable "instance_type" {
+        type = string
+        default = "t2.micro"
+}
+
+variable "ami" {
+        type = string
+        default = "ami-0e347cff037f057c4"
+}
+
+output "Terra" {
+        value = "I Love Terraform"
+        }
+
+output "public_ip" {
+        value = "aws_instance.instance-1.public_ip"
+}
+
+output "arn" {
+        value =  "aws_instance.instance-1.arn"
+}
+
+output "volume_id" {
+        value =  "aws_instance.instance-1.volume_id"
+}
+
+output "instance_state" {
+        value =  "aws_instance.instance-1.instance_state"
