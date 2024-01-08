@@ -49,6 +49,27 @@ resource "aws_security_group" "sg1" {
   }
 }
 
+resource "aws_s3_bucket" "bucket_my" {
+  bucket = "terra1-bucket"
+
+  aws_s3_bucket_versioning {
+    enabled = true
+  }
+
+  tags = {
+    Name        = "bucket-terra1"
+    Environment = "Dev"
+  }
+}
+
+terraform {
+  backend "s3" {
+    bucket         = aws_s3_bucket.bucket_my.id
+    key            = "terraform.tfstate"
+    region         = "ap-northeast-1"
+  }
+}
+
 #resource "aws_instance" "instance-1" {
   #ami                     = "ami-0e347cff037f057c4"
   #instance_type           = "t2.micro"
