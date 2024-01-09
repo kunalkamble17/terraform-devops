@@ -49,26 +49,32 @@ resource "aws_security_group" "sg1" {
   }
 }
 
-resource "aws_s3_bucket" "bucket_my" {
-  bucket = "terra1-bucket"
+/*
+#resource "aws_s3_bucket" "bucket_my" {
+  #bucket = "terra1-bucket"
 
-  aws_s3_bucket_versioning {
-    enabled = true
-  }
+  #versioning {
+    #enabled = true
+  #}
 
-  tags = {
-    Name        = "bucket-terra1"
-    Environment = "Dev"
-  }
-}
+  #tags = {
+    #Name        = "bucket-terra1"
+    #Environment = "Dev"
+  #}
+#}
+*/
 
+/*
 terraform {
   backend "s3" {
-    bucket         = aws_s3_bucket.bucket_my.id
+    bucket         = "terra1-bucket"
     key            = "terraform.tfstate"
     region         = "ap-northeast-1"
+    access_key = "AKIAS7C75IHQVMTUMGNE"
+    secret_key = "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"
   }
 }
+*/
 
 #resource "aws_instance" "instance-1" {
   #ami                     = "ami-0e347cff037f057c4"
@@ -119,3 +125,4 @@ output "volume_id" {
 
 output "instance_state" {
         value =  "aws_instance.instance-1.instance_state"
+}
