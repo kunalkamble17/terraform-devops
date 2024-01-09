@@ -69,10 +69,11 @@ terraform {
     bucket         = "terra1-bucket"
     key            = "terraform.tfstate"
     region         = "ap-northeast-1"
-    access_key = "AKIAS7C75IHQVMTUMGNE"
-    secret_key = "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"
+    access_key     = 
+    secret_key     = 
   }
 }
+
 */
 
 /*
