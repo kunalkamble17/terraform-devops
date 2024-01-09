@@ -1,6 +1,5 @@
-
 provider "aws" {
-    region = "ap-northeast-1"
+  region = "ap-northeast-1"
 }
 
 resource "aws_security_group" "sg1" {
@@ -76,6 +75,7 @@ terraform {
 }
 */
 
+/*
 #resource "aws_instance" "instance-1" {
   #ami                     = "ami-0e347cff037f057c4"
   #instance_type           = "t2.micro"
@@ -85,6 +85,7 @@ terraform {
     #Name = "server"
  # }
 #}
+*/
 
 
 resource "aws_instance" "instance-1" {
