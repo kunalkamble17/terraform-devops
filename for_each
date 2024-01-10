@@ -1,0 +1,26 @@
+provider "aws" {
+   region = "ap-northeast-1"
+   access_key = "AKIAS7C75IHQVMTUMGNE"
+   secret_key = "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"
+}
+
+
+resource "aws_instance" "instance1" {
+   for_each = toset(var.image_id)
+   ami                     = each.value
+   instance_type           = "t2.micro"
+   key_name = "tokyo-yagi"
+   vpc_security_group_ids = ["sg-0a83386f148e63533", ]
+}
+
+variable "image_id" {
+    type = list(string)
+    default = ["ami-0506f0f56e3a057a4", "ami-07c589821f2b353aa", "ami-062e4a209de4075fc"]
+}
+
+output "ip" {
+   value = [
+	for instance in var.image_id:
+	aws_instance.instance1[instance].public_ip
+	]
+}
